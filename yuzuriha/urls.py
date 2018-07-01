@@ -15,11 +15,14 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from rest_framework_jwt.views import obtain_jwt_token
 from django.conf import settings
 from django.conf.urls.static import static
-from .views import index
+from .views import index, PingViewSet
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('login/', obtain_jwt_token),
+    path('ping', PingViewSet.as_view()),
     path('', index, name='index'), # vueシングルページアプリへのルーティング
 ] + static(settings.STATIC_URL) # staticディレクトリにルーティング
